@@ -1,5 +1,4 @@
 'use strict';
-const uuidGenerator = require('uuid');
 const db = require('../db');
 
 module.exports = {
@@ -8,10 +7,14 @@ module.exports = {
   },
 
   *post() {
-    const userRegistration = Object.assign({ uuid: uuidGenerator.v1() }, this.request.body);
-    db.users.insert(userRegistration);
+    let user = this.request.body;
+    if (typeof user === 'string') {
+      user = JSON.parse(user);
+    }
+
+    db.users.insert(user);
     this.status = 201;
-    this.body = userRegistration;
+    this.body = user;
   },
 
   *delete(uuid) {
