@@ -1,8 +1,10 @@
 'use strict';
 
+const db = require('../db');
+
 module.exports = {
   *get() {
-    this.body = [];
+    this.body = db.devices.find();
   },
 
   *post() {
