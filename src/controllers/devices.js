@@ -18,7 +18,7 @@ module.exports = {
    * paired: false
    */
   *post() {
-    const deviceRegistration = Object.assign({ uuid: duuidGenerator.v1() }, this.request.fields);
+    const deviceRegistration = Object.assign({ uuid: duuidGenerator.v1() }, this.request.body);
 
     if (!deviceRegistration.mac || !deviceRegistration.device_name || !deviceRegistration.user_mac) {
       this.status = 422;
