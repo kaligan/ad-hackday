@@ -17,17 +17,17 @@ app.use(route.get('/', function* () {
 }));
 
 // application routes
-app.use(route.get('/api/hackday/applications'), applications.get);
+app.use(route.get('/api/hackday/applications', applications.get));
 
 // user routes
-app.use(route.get('/api/hackday/users'), users.get);
-app.use(route.post('/api/hackday/users'), users.post);
-app.use(route.delete('/api/hackday/users'), users.delete);
+app.use(route.get('/api/hackday/users', users.get));
+app.use(route.post('/api/hackday/users', users.post));
+app.use(route.delete('/api/hackday/users', users.delete));
 
 // device routes
-app.use(route.get('/api/hackday/devices'), devices.get);
-app.use(route.post('/api/hackday/devices'), devices.post);
-app.use(route.delete('/api/hackday/devices'), devices.delete);
+app.use(route.get('/api/hackday/devices', devices.get));
+app.use(route.post('/api/hackday/devices', devices.post));
+app.use(route.delete('/api/hackday/devices', devices.delete));
 
 
 if (!module.parent) {
