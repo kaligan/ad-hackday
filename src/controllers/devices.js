@@ -1,4 +1,5 @@
 'use strict';
+const duuidGenerator = require('uuid');
 
 const db = require('../db');
 
@@ -10,10 +11,15 @@ module.exports = {
   },
 
   *post() {
-    this.body = {};
+    const deviceRegistration = Object.assign({ uuid: duuidGenerator.v1() }, this.request.body);
+    db.devices.insert(deviceRegistration);
+    this.status = 201;
+    this.body = deviceRegistration ;
   },
 
   *delete() {
-    this.body = {};
+    const device = db.devices.find({uuid});
+    db.devices.remove(device);
+    this.body = {uuid};
   }
 };
