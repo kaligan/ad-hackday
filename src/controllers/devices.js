@@ -12,14 +12,20 @@ module.exports = {
 
   *post() {
     const deviceRegistration = Object.assign({ uuid: duuidGenerator.v1() }, this.request.body);
+
+    if (!deviceRegistration.name) {
+      this.status = 422;
+      return;
+    }
+
     db.devices.insert(deviceRegistration);
     this.status = 201;
-    this.body = deviceRegistration ;
+    this.body = deviceRegistration;
   },
 
-  *delete() {
-    const device = db.devices.find({uuid});
+  *delete(uuid) {
+    const device = db.devices.find({ uuid });
     db.devices.remove(device);
-    this.body = {uuid};
+    this.body = { uuid };
   }
 };
