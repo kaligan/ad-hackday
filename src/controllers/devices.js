@@ -24,14 +24,18 @@ module.exports = {
       this.status = 422;
       this.body = {
         status: 422,
-        error: 'Unprocessable Entity',
         message: 'Required fields include mac, user_mac, name'
       };
       return;
     }
 
-    if (!deviceRegistration.user_mac) {
-      this.status = 422;
+    const user = db.users.find({ user_mac: deviceRegistration.user_mac });
+    if (!user) {
+      this.status = 400;
+      this.body = {
+        status: 400,
+        message: 'Invalid user'
+      };
       return;
     }
 
