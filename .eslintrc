@@ -20,7 +20,7 @@
     "space-before-function-paren": [2, { "anonymous": "never", "named": "never" }],
     "max-len": 0,
     "require-yield":"off",
-    "generator-star-spacing": ["error", {"before": false, "after": true}],
+    "generator-star-spacing": [0, {"before": false, "after": true}],
     "import/no-extraneous-dependencies": ["error", {"devDependencies": true, "optionalDependencies": false, "peerDependencies": false}]
   },
 
