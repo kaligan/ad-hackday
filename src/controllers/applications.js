@@ -7,18 +7,21 @@ module.exports = {
   *get() {
     const mac = this.request.header['x-user-mac'];
 
-    const user = db.users.find({ mac });
+    const users = db.users.find({ mac });
+    const user = users[0];
 
     if (user && user.access_token) {
-      const applicationsResponse = yield got('https://myapps-edge.appdirect.com/api/users/myapps', {
+      const uri = `localhost:3001/api/users/${user.uuid}/companies/${user.company_uuid}/applications`;
+      const applicationsResponse = yield got(uri, {
         headers: {
-          authorization: user.access_token
+          authorization: user.access_token,
+          'x-channel': 'clevertouch'
         }
       });
-      const applications = JSON.parse(applicationsResponse.body);
-      this.body = applications;
+
+      this.body = JSON.parse(applicationsResponse.body);
     } else {
-      const applicationsResponse = yield got('https://myapps-edge.appdirect.com/api/marketplace/applications?channel=clevertouch');
+      const applicationsResponse = yield got('localhost:3001/api/marketplace/applications?channel=clevertouch');
       const applications = JSON.parse(applicationsResponse.body);
       this.body = applications;
     }

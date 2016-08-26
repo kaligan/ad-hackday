@@ -44,6 +44,16 @@ module.exports = {
     this.body = deviceRegistration;
   },
 
+  *user(mac) {
+    const user = db.users.find({ mac });
+    if (!user || user.length === 0) {
+      this.status = 404;
+      return;
+    }
+
+    this.body = user[0].profile;
+  },
+
   *delete(uuid) {
     const device = db.devices.find({ uuid });
     db.devices.remove(device);
